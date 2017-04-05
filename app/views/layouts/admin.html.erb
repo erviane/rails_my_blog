@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>My Blog</title>
+
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag  'admin', media: 'all' %>
+    <%= javascript_include_tag 'admin'%>
+
+  </head>
+
+  <body>
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <button data-toggle="offcanvas"><div class="brand">UKIRAMA</div></button>
+
+          
+          
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><%= link_to 'View Blog' ,root_path %></li>
+            
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"> User</i> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><%= link_to 'Personal Information', '#' %></li>
+                        <li><%= link_to 'Setting', '#' %></li>
+                        <li class="divider"></li>
+                        <li><%= link_to 'Logout', root_path %></li>
+                    </ul>
+                  </li>
+              </ul>
+        </div><!-- /.nav-collapse -->
+        
+      </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+
+
+
+    <div class="container-fluid">
+
+      <div class="row row-offcanvas row-offcanvas-left">
+          <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+          <div class="list-group">
+            <%= link_to 'Blog List', bloglist_path, :class => 'list-group-item' %>
+            <%= link_to 'Write New', new_path, :class => 'list-group-item' %>
+            <%= link_to 'Draft', draft_path, :class => 'list-group-item' %>
+            <%= link_to 'Comment', comment_path , :class => 'list-group-item' %>
+          </div>
+        </div><!--/.sidebar-offcanvas-->
+        <div class="col-xs-12 col-sm-9">
+          
+          <%= yield %>
+
+        </div><!--/.col-xs-12.col-sm-9-->
+
+        
+      </div><!--/row-->
+
+      </div>
+      <%= render 'layouts/footer' %>
+  </body>
+</html>

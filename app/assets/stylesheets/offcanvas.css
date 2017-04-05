@@ -1,0 +1,135 @@
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+html,
+body {
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+body {
+  padding-top: 70px;
+}
+.container{
+  width: 90%;
+}
+.container-fluid{
+  min-height:730px;
+  width: 90%;
+  margin: 0 auto;
+}
+.pull-left{
+  padding-top: 13px;
+}
+.brand{
+  font-weight: bold;
+  padding-right: 30px;
+  color: white;
+  font-size: 30px;
+}
+.navbar-inverse .navbar-collapse > li > a:hover{
+  background-color: #eeeeee;
+}
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 767px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all .25s ease-out;
+         -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+  }
+
+  .row-offcanvas-right {
+    right: 0;
+  }
+
+  .row-offcanvas-left {
+    left: 0;
+  }
+
+  .row-offcanvas-right
+  .sidebar-offcanvas {
+    right: -50%; /* 6 columns */
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -50%; /* 6 columns */
+  }
+
+  .row-offcanvas-right.active {
+    right: 50%; /* 6 columns */
+  }
+
+  .row-offcanvas-left.active {
+    left: 50%; /* 6 columns */
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 50%; /* 6 columns */
+  }
+}
+.bloglist {
+  margin-bottom: 20px;
+  border-bottom: 1px #eeeeee solid;
+
+}
+.bloglist [class*="col-"] {
+  padding-top: 15px;
+  }
+.bloglist .blogtitle{
+  font-weight: bold;
+  font-size: 20px;
+}
+.icon{
+  padding-top: 5px;
+}
+
+.blog-footer {
+  padding: 40px 0;
+  color: white;
+  background-color: black;
+  border-top: 1px solid #e5e5e5;
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
+}
+.blog-footer h4{
+  padding-top: 10px;
+  margin-top: 0px !important;
+  font-weight: bold;
+  color: white;
+}
+.find_me img{
+  width: 20px;
+  height: auto;
+
+}
+.blog-footer [class*="col-"] {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+@media (min-width: 990px){
+  .blog-footer .col-md-4{
+    text-align: left;
+    padding-left: 100px;
+  }
+  .blog-footer .col-md-8{
+    text-align: right;
+    padding-right: 100px;
+  }
+}
+@media (max-width: 990px){
+ .blog-footer [class*="col-"] {
+    text-align: center;
+  }
+}
+.navbar-header button{
+  background-color: transparent;
+  border: 0px;
+}
