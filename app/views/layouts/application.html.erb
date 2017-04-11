@@ -15,84 +15,9 @@
   </head>
 
   <body>
-     <div class="blog-header">
-      <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <h1 class="blog-title">UKIRAMA</h1>
-        <p class="lead blog-description">"Lorem ipsum dolor sit amet, consectetur adipiscing elit"</p>
-      </div>
-         <div id="navbar" class="navbar-default collapse navbar-collapse">
-          <div class="container">
-          <ul class="nav navbar-nav">
-            <li><%= link_to 'Home', root_path %></li>
-            <li><%= link_to 'About', about_path %></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to '<i class="glyphicon glyphicon-log-in"></i> Login'.html_safe, login_path %></li>
-          </ul>
-        </ul>
-        </div><!-- /.container -->
-      </div><!-- /.nav-collapse -->
 
-    <div class="container">
+   <%= yield %>
 
-     
-
-      <div class="row">
-        <div class="col-sm-8 blog-main">
-
-          
-            <%= yield %>
- 
-
-                  
-
-        </div><!-- /.blog-main -->
-
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          <center><input type="search" placeholder="Search.."></center>
-          <br>
-          <div class="sidebar-module">
-            <h4>Blog List</h4>
-            <ul>
-              <li><time>January, 2017</time></li>
-                <ul>
-                  <li><%= link_to 'Ukirama ERP', '#' %></li>
-                  <li><%= link_to 'Be The Web Developer', '#' %></li>
-                </ul>
-              <li><time>February, 2017</time></li>
-              <ul>
-                  <li><%= link_to 'Ukirama ERP', '#' %></li>
-                  <li><%= link_to 'Be The Web Developer', '#' %></li>
-                </ul>
-            </ul>
-          </div>
-          <div class="sidebar-module">
-            <h4>Category</h4>
-            <ul>
-              <li><%= link_to 'Sport', '#' %></li>
-              <li><%= link_to 'Fashion', '#' %></li>
-              <li><%= link_to 'Holiday', '#' %></li>
-            </ul>
-          </div>
-          <div class="sidebar-module sidebar-module-inset">
-            <h4>The Blogger</h4>
-            <%=image_tag("me.jpg")%>
-            <p>"Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur."</p>
-          </div>
-        </div><!-- /.blog-sidebar -->
-
-      </div><!-- /.row -->
-
-    </div><!-- /.container -->
-
-    <%= render 'layouts/footer' %>
 
   </body>
 </html>
