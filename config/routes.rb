@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-resources :blogs do
-	resources :comments
-end
+  
+
+resources :users
+resources :blog_posts
 
   root 'pages#index'
-  get '/about', to: 'pages#about'
-  get '/contact', to: 'pages#contact'
   get '/post', to: 'pages#post'
-  get '/signin', to: 'pages#signin'
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
+  get 'sessions/new'
+  get '/blog/:id', to: 'pages#show', as: 'detail_blog'
 end

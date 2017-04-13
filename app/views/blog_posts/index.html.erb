@@ -1,12 +1,11 @@
-   <%= render 'pages/nav' %>
-   <!-- Page Header -->
-    <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('<%=image_path("home-bg")%>')">
+<%= render 'blog_posts/nav' %>
+
+<header class="intro-header" style="background-image: url('<%=image_path("blog-bg")%>')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
-                        <h1>My Blog</h1>
+                        <h1>Blog list</h1>
                         <hr class="small">
                         <span class="subheading"></span>
                     </div>
@@ -19,29 +18,33 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <% @blog.each do |blog| %>
+
+            <p id="notice"><%= notice %></p>
+              <%= link_to 'New Blog', new_blog_post_path, :class=>"btn btn-default" %>
+
+            <% @blog_post.each do |blog| %>
                 <div class="post-preview">
                         <h2 class="post-title">
-                            <%= link_to blog.title, detail_blog_path(blog.id) %>
+                            <%= link_to blog.title, blog_post_path(blog.id) %>
                         </h2>
                         <h3 class="post-subtitle">
                             <%= blog.summary %>
+                            <div class="button" style="float: right;">
+                            <%= link_to 'View', blog_post_path(blog.id), :class=>"btn btn-primary" %>
+                            <%= link_to 'Edit', edit_blog_post_path(blog.id), :class=>"btn btn-success" %>
+                            <%= link_to 'Delete', blog_post_path(blog.id), method: :delete, data: {confirm: "are you sure?"}, :class=>"btn btn-danger" %>
+                            </div>
                         </h3>
                     <p class="post-meta">Posted by <a href="#"><%= blog.user.name %></a> <%= blog.updated_at.to_formatted_s(:long_ordinal) %></p>
                 </div>
                 <hr>
             <% end %>
                 
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
-                    </li>
-                </ul>
+                
             </div>
         </div>
     </div>
 
     <hr>
 
-     <%= render 'pages/footer' %>
+<%= render 'pages/footer' %>

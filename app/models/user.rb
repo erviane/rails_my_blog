@@ -1,13 +1,14 @@
 class User < ApplicationRecord
-	has_many :blogs
-	validates :name, presence: true
-	validates :bio, presence: true,
-					length: {maximum: 1000 }
-	validates :quote, presence: true,
-					  length: { maximum: 100 }
-	validates :username, presence: true,
-						 length: { maximum: 30 },
-						 uniqueness: true
-	validates :password, presence: true,
-						 length: { minimum: 8}
+	before_save { email.downcase! }
+
+	has_many :blog_posts
+	validates :name, presence: true,
+					length: { maximum: 45 }
+	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  	validates :email, presence: true, length: { maximum: 45 },
+                    format: { with: VALID_EMAIL_REGEX },
+                    uniqueness: { case_sensitive: false }
+    has_secure_password
+  	validates :password, presence: true, length: { minimum: 6, maximum: 45 }
+
 end

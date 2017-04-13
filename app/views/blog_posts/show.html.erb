@@ -1,15 +1,21 @@
  
-    <%= render 'pages/nav' %>
+    <%= render 'blog_posts/nav' %>
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('<%=image_path("post-bg")%>')">
+    <header class="intro-header"
+    <% if @blog_post.title_image_url.present? %>
+    style="background-image: url('<%= @blog_post.title_image_url%>')"
+    <% else %>
+    style="background-image: url('<%= image_path("home-bg")%>')"
+    <% end %>
+    >
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1><%= @blog.title %></h1>
-                        <h2 class="subheading"><%= @blog.summary %></h2>
-                        <span class="meta">Posted by <a href="#"><%= @blog.user.name %></a> <%= @blog.updated_at.to_formatted_s(:long_ordinal) %></span>
+                        <h1><%= @blog_post.title %></h1>
+                        <h2 class="subheading"><%= @blog_post.summary %></h2>
+                        <span class="meta">Posted by <a href="#"><%= @blog_post.user.name %></a> <%= @blog_post.updated_at.to_formatted_s(:long_ordinal) %></span>
                     </div>
                 </div>
             </div>
@@ -21,7 +27,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <%= @blog.content %>
+                    <%= @blog_post.content %>
                 </div>
             </div>
         </div>
