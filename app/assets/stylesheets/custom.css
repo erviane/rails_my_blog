@@ -1,0 +1,30 @@
+.search{
+	height: 60px;
+	display: block;
+}
+.search a{
+	padding: 10px 10px 10px 10px;
+}
+#search{
+	padding: 5px 10px 10px 5px;
+	min-width: 200px;
+	float: right;
+}
+#search_tag_tag_id{
+	padding: 5px 10px 10px 5px;
+	min-width: 200px;
+	float: right;
+}
+.checkbox {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+}
+#error_explanation{
+	color: red;
+	border: 2px solid;
+	padding: 5px 5px 5px 5px;
+}
+.reload{
+	float: right;
+}

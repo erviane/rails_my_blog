@@ -1,0 +1,52 @@
+   <%= render 'pages/nav' %>
+   <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('<%=image_path("home-bg")%>')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>My Blog</h1>
+                        <hr class="small">
+                        <span class="subheading"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <%= render 'form_search_index' %>
+            <b style="font-size: 30px">  <%= @notice %>  </b><br>
+            search for : <%= "#{params[:search]}" %><br><br>
+            <% @result.each do |blog| %>
+                <div class="post-preview">
+                        <h2 class="post-title">
+                            <%= link_to blog.title, detail_blog_path(blog.id) %>
+                        </h2>
+                        <h3 class="post-subtitle">
+                            <%= blog.summary %>
+                        </h3>
+                        
+                        <b>Tags :</b> 
+                    <%= blog.tags.map{|tag|tag.tag_name}.join(", ")%>
+                    <p class="post-meta">Posted by <a href="#"><%= blog.user.name %></a> <%= blog.updated_at.to_formatted_s(:long_ordinal) %></p>
+                </div>
+                <hr>
+            <% end %>
+
+            
+                
+                <!-- Pager -->
+                <ul class="pager">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+     <%= render 'pages/footer' %>

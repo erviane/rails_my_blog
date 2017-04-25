@@ -13,3 +13,6 @@
 //= require vendor
 //= require jquery
 //= require jquery_ujs
+//= require chartkick
+//= require autorefresh
+

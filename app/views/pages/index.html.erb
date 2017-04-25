@@ -19,15 +19,27 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <% @blog.each do |blog| %>
+            <div class="search">
+            <%= form_tag posts_index_path, :method => 'get'  do %>
+            <%= search_field_tag :search, params[:search], placeholder: "Search Blog By Title"%>
+            <% end %>
+            <%= form_tag index_tag_path, :method => 'get'  do %>
+            <%= select("search_tag", "tag_id", Tag.all.collect {|p| [ p.tag_name, p.id ] }, {include_blank: 'Search Blog By Tag'}, :onchange => "this.form.submit()") %>
+            <% end %>
+            </div>
+            <b style="font-size: 30px">Recent Blogs: </b><br>
+            <% @blog_post.each do |blog_post| %>
                 <div class="post-preview">
                         <h2 class="post-title">
-                            <%= link_to blog.title, detail_blog_path(blog.id) %>
+                            <%= link_to blog_post.title, detail_blog_path(blog_post.id) %>
                         </h2>
                         <h3 class="post-subtitle">
-                            <%= blog.summary %>
+                            <%= blog_post.summary %>
                         </h3>
-                    <p class="post-meta">Posted by <a href="#"><%= blog.user.name %></a> <%= blog.updated_at.to_formatted_s(:long_ordinal) %></p>
+                       
+                        <b>Tags :</b> 
+                        <%= blog_post.tags.map{|tag|tag.tag_name}.join(", ")%>
+                    <p class="post-meta">Posted by <a href="#"><%= blog_post.user.name %></a> <%= blog_post.updated_at.to_formatted_s(:long_ordinal) %></p>
                 </div>
                 <hr>
             <% end %>
@@ -35,7 +47,6 @@
                 <!-- Pager -->
                 <ul class="pager">
                     <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
                     </li>
                 </ul>
             </div>

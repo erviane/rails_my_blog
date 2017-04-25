@@ -1,0 +1,8 @@
+			<div class="search">
+            <%= form_tag posts_index_path, :method => 'get'  do %>
+            <%= search_field_tag :search, params[:search], placeholder: "Search Blog By Title"%>
+            <% end %>
+            <%= form_tag index_tag_path, :method => 'get'  do %>
+            <%= select("search_tag", "tag_id", Tag.all.collect {|p| [ p.tag_name, p.id ] }, {include_blank: 'Search Blog By Tag'}, :onchange => "this.form.submit()") %>
+            <% end %>
+            </div>

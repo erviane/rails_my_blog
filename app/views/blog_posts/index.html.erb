@@ -18,25 +18,58 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="search">
+            <%= form_tag search_path, :method => 'get'  do %>
+            <%= search_field_tag :search, params[:search], placeholder: "Search Blog By Title"%>
+            <% end %>
+            <%= form_tag search_tag_path, :method => 'get'  do %>
+            <%= select("search_tag", "tag_id", Tag.all.collect {|p| [ p.tag_name, p.id ] }, {include_blank: 'Search Blog By Tag'}, :onchange => "this.form.submit()") %>
+            <% end %>
+            <%= link_to 'New Blog', new_blog_post_path, :class=>"btn btn-default" %>
+            </div>
+             <% flash.each do |key, value| %>
+                <div class="alert alert-<%= key %>"><%= value %></div>
+            <% end %>
+              <br>
+            <b style="font-size: 30px">Recent Blogs: </b><br>
 
-            <p id="notice"><%= notice %></p>
-              <%= link_to 'New Blog', new_blog_post_path, :class=>"btn btn-default" %>
+           
 
             <% @blog_post.each do |blog| %>
-                <div class="post-preview">
-                        <h2 class="post-title">
+            <div class="post-preview">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 class="post-title">
                             <%= link_to blog.title, blog_post_path(blog.id) %>
                         </h2>
                         <h3 class="post-subtitle">
                             <%= blog.summary %>
+                            
+                        </h3>
+
+                        <b>Tags :</b> 
+                        <%= blog.tags.map{|tag|tag.tag_name}.join(", ")%>
+                    <p class="post-meta">Posted by <a href="#"><%= blog.user.name %></a> <%= blog.updated_at.to_formatted_s(:long_ordinal) %></p>
+                </div>
+                <div class="col-md-4">
+                    <h2 class="post-title">
+                           &nbsp;
+                        </h2>
+                        <h3 class="post-subtitle">
+                          &nbsp;
                             <div class="button" style="float: right;">
                             <%= link_to 'View', blog_post_path(blog.id), :class=>"btn btn-primary" %>
-                            <%= link_to 'Edit', edit_blog_post_path(blog.id), :class=>"btn btn-success" %>
+                            <%= link_to 'Edit', edit_blog_post_path(blog.id), :class=>"btn btn-warning" %>
                             <%= link_to 'Delete', blog_post_path(blog.id), method: :delete, data: {confirm: "are you sure?"}, :class=>"btn btn-danger" %>
                             </div>
                         </h3>
-                    <p class="post-meta">Posted by <a href="#"><%= blog.user.name %></a> <%= blog.updated_at.to_formatted_s(:long_ordinal) %></p>
+                     
                 </div>
+                
+            </div>
+                        
+                </div>
+
                 <hr>
             <% end %>
                 

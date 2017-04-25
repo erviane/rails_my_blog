@@ -3,7 +3,8 @@
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
     <header class="intro-header"
-    <% if @blog_post.title_image_url.present? %>
+    <% str = @blog_post.title_image_url.first(4) %>
+    <% if str == "http" %>
     style="background-image: url('<%= @blog_post.title_image_url%>')"
     <% else %>
     style="background-image: url('<%= image_path("home-bg")%>')"
@@ -28,10 +29,62 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <%= @blog_post.content %>
+                    <br>
+                    <br>
+                    <b>Tags :</b> 
+                    <%= @blog_post.tags.map{|tag|tag.tag_name}.join(", ")%>
+
                 </div>
             </div>
         </div>
     </article>
 
     <hr>
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <% if @blog_post.comments.count==0%>
+                    <h3>No Comment Yet</h3>
+                <% else %>
+                    <h3><%= @blog_post.comments.count %><%= " Comment".pluralize(@blog_post.comments.count) %></h3>
+                <% end %>
+            <% @blog_post.comments.each do |comment| %>
+            <div class="post-preview">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="post-title">
+                            <b><%= comment.name %></b>
+                        </h4>
+                        <p class="post-subtitle">
+                            <%= comment.message %>
+                            
+                        </p>
+                    <p class="post-meta">Posted <%= time_ago_in_words (comment.created_at) %> ago</p>
+                </div>
+                <div class="col-md-4">
+                        <p class="post-subtitle">
+                          &nbsp;
+                            <div class="button" style="float: right;">
+                            <%= link_to 'Delete', [comment.blog_post,comment], method: :delete, data: {confirm: "are you sure?"}, :class=>"btn btn-danger" %>
+                            </div>
+                        </p>
+                </div>
+                 </div>       
+                </div>
+
+                <hr>
+                <% end %>
+                <% if @blog_post.commentable %>
+                   <%= render 'comments/form' %>
+                   <% else %>
+                   <h3>This Post Uncommentable</h3>
+                   <% end %>
+                </div>
+            </div>
+        </div>
+    <hr>
+    
+    
+
     <%= render 'pages/footer' %>

@@ -8,9 +8,10 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       log_in user
-      redirect_to blog_posts_url
+      redirect_to statistic_blog_url
     else
-      redirect_to login_url, notice: 'Invalid email or password'
+      flash[:danger] = "Invalid email or password"
+      redirect_to login_url
     end
   end
 

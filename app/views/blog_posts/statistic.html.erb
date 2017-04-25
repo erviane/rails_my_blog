@@ -1,0 +1,130 @@
+<%= render 'blog_posts/nav' %>
+
+<header class="intro-header" style="background-image: url('<%=image_path("statistik-bg")%>')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Statistic</h1>
+                        <hr class="small">
+                        <span class="subheading"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+              <div class="panel panel-default">
+                    <div class="panel-heading">5 Most Tagged Blogs</div>
+                    <div class="panel-body">
+                        <%= column_chart @most_tagged_blog %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">5 Most Tagged Blogs <button class=reload onclick="reload1()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button></div>
+                    <div class="panel-body">
+                        <table id=reload1 class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Number of Tags</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @most_tagged_blog.each do |key, value| %>
+                            <tr>
+                                <td><%= key %></td>
+                                <td><%= value %></td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">5 Most Commented Blogs</div>
+                    <div class="panel-body">
+                        <%= column_chart @most_commented_blog %>
+                    </div>
+                </div>
+                </div>
+                 <div class="col-sm-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">5 Most Commented Blogs<button class=reload onclick="reload2()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button></div>
+                        <div class="panel-body">
+                            <table id=reload2 class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Number of Comments</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% @most_commented_blog.each do |key, value| %>
+                                        <tr>
+                                            <td><%= key %></td>
+                                            <td><%= value %></td>
+                                        </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">5 Most Active Users</div>
+                    <div class="panel-body">
+                        <%= column_chart @most_active_user %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">5 Most Active Users<button class=reload onclick="reload3()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button></div>
+                    <div class="panel-body">
+                        <table id=reload3 class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Number of Blogs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @most_active_user.each do |key, value| %>
+                            <tr>
+                                <td><%= key %></td>
+                                <td><%= value %></td>
+                            </tr>
+                            <% end %>
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+<%= render 'pages/footer' %>

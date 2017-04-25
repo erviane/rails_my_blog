@@ -1,0 +1,4 @@
+<%= CSV.generate_line(['Name', 'Email', 'Password']).strip %>
+<% @users.each do |user| %>
+<%= CSV.generate_line([user.name, user.email, user.password_digest]).html_safe.strip %>
+<% end %>

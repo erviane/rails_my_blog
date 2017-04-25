@@ -1,0 +1,22 @@
+<%= form_for(tag) do |f| %>
+  <% if tag.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+      <% tag.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :tag_name %>
+    <%= f.text_field :tag_name, class: 'form-control', required: true %>
+  </div> 
+
+  <div class="actions">
+    <%= f.submit "Submit", class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+ 

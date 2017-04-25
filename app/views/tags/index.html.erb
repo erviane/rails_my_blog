@@ -1,0 +1,47 @@
+<%= render 'blog_posts/nav' %>
+
+<header class="intro-header" style="background-image: url('<%=image_path("tag-bg")%>')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Tag list</h1>
+                        <hr class="small">
+                        <span class="subheading"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            
+            <% flash.each do |key, value| %>
+                <div class="alert alert-<%= key %>"><%= value %></div>
+            <% end %>
+           <%= link_to 'New Tag', new_tag_path, :class=>"btn btn-default" %><br><br>
+
+            <% @tags.each do |tag| %>
+                <div class="post-preview">
+                        <h3 class="post-subtitle">
+                            <%= tag.tag_name %>
+                            <div class="button" style="float: right;">
+                            <%= link_to 'Edit',edit_tag_path(tag), :class=>"btn btn-success" %>
+                            <%= link_to 'Delete', tag, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %>
+                            </div>
+                        </h3>
+                </div>
+                <hr>
+            <% end %>
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+<%= render 'pages/footer' %>

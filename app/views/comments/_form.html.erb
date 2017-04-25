@@ -1,0 +1,24 @@
+<h2>Add a comment:</h2><br>
+<div class="form-horizontal">
+  <%= form_for ([@blog_post, @blog_post.comments.build]) do |f| %>
+
+  <div class="form-group">
+   <%= f.label :name, class: "control-label col-sm-1" %>
+   <div class="col-sm-11">
+    <%= f.text_field :name, size: "40", required: true %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :message, class: "control-label col-sm-1" %>
+    <div class="col-sm-11">
+    <%= f.text_area :message, size: "40x7", required: true %>
+    </div>
+  </div>
+<div class="col-sm-offset-1 col-sm-11">
+  <div class="actions">
+    <%= f.submit "Submit" %>
+  </div>
+  </div>
+<% end %>
+
+</div>

@@ -10,20 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412034954) do
+ActiveRecord::Schema.define(version: 20170418081046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "blog_posts", force: :cascade do |t|
-    t.string   "title",           null: false
-    t.string   "summary",         null: false
-    t.text     "content",         null: false
-    t.integer  "user_id",         null: false
+    t.string   "title",                          null: false
+    t.string   "summary",                        null: false
+    t.text     "content",                        null: false
+    t.integer  "user_id",                        null: false
     t.string   "title_image_url"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "commentable",     default: true
     t.index ["user_id"], name: "index_blog_posts_on_user_id", using: :btree
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "blog_post_id"
+    t.string   "name",         null: false
+    t.string   "message",      null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["blog_post_id"], name: "index_comments_on_blog_post_id", using: :btree
+  end
+
+  create_table "tag_blogs", force: :cascade do |t|
+    t.integer  "blog_post_id", null: false
+    t.integer  "tag_id",       null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["blog_post_id"], name: "index_tag_blogs_on_blog_post_id", using: :btree
+    t.index ["tag_id"], name: "index_tag_blogs_on_tag_id", using: :btree
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "tag_name",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -36,4 +61,7 @@ ActiveRecord::Schema.define(version: 20170412034954) do
   end
 
   add_foreign_key "blog_posts", "users"
+  add_foreign_key "comments", "blog_posts", on_delete: :cascade
+  add_foreign_key "tag_blogs", "blog_posts", on_delete: :cascade
+  add_foreign_key "tag_blogs", "tags", on_delete: :cascade
 end

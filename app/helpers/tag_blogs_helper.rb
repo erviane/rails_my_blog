@@ -1,0 +1,2 @@
+module TagBlogsHelper
+end

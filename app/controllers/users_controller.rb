@@ -4,9 +4,16 @@ class UsersController < ApplicationController
 
   # GET /users
   # GET /users.json
-  #def index
-  #  @users = User.all
-  #end
+  def index
+    @users = User.all
+    respond_to do |format|
+    format.html
+    format.csv do
+      headers['Content-Disposition'] = "attachment; filename=\"user-list\""
+      headers['Content-Type'] ||= 'text/csv'
+    end
+  end
+  end
 
   # GET /users/1
   # GET /users/1.json
@@ -18,6 +25,11 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def new_user_admin
+    @user = User.new
+  end       
+
+
   # GET /users/1/edit
   def edit
   end
@@ -25,41 +37,61 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
+    @user = User.new(user_params) 
       if @user.save
-        format.html { redirect_to login_url, notice: 'User was successfully created.' }
-        format.json { render :index, status: :created }
+        flash[:success] = "User was successfully created. please login."
+        redirect_to login_url
       else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to blog_posts_url, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+      if @user.update_attributes(user_params)
+        flash[:success] = "User was successfully updated."
+        redirect_to user_path(@user)
+        else
+          render :edit
       end
-    end
   end
 
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to blog_posts_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+    if @user.destroy
+    flash[:success] = "User was successfully destroyed."
+    redirect_to users_url
     end
+  end
+
+  def import
+    file= params[:file]
+    CSV.foreach(file.path, headers: true) do |row|
+        user_hash = row.to_hash
+        @user = User.new(name: user_hash["name"], email: user_hash["email"], password: user_hash["password"], password_confirmation: user_hash["password"] )
+        if !@user.valid?
+            @validation=false
+        end
+    end
+    if @validation==false
+        flash[:danger] = "CSV failed to upload. One or some data invalid."
+        redirect_to new_user_admin_url
+    else
+      CSV.foreach(file.path, headers: true) do |row|
+        user_hash = row.to_hash
+        @user = User.create(name: user_hash["name"], email: user_hash["email"], password: user_hash["password"], password_confirmation: user_hash["password"] )
+        
+      end
+        flash[:success] = "CSV successfully uploaded"
+        redirect_to users_url
+    end
+  end
+
+
+  def export_user
+    
   end
 
   private

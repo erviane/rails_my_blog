@@ -2,14 +2,21 @@
     <%= render 'pages/nav' %>
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('<%=image_path("post-bg")%>')">
+   <header class="intro-header"
+    <% str = @blog_post.title_image_url.first(4) %>
+    <% if str == "http" %>
+    style="background-image: url('<%= @blog_post.title_image_url%>')"
+    <% else %>
+    style="background-image: url('<%= image_path("home-bg")%>')"
+    <% end %>
+    >
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1><%= @blog.title %></h1>
-                        <h2 class="subheading"><%= @blog.summary %></h2>
-                        <span class="meta">Posted by <a href="#"><%= @blog.user.name %></a> <%= @blog.updated_at.to_formatted_s(:long_ordinal) %></span>
+                        <h1><%= @blog_post.title %></h1>
+                        <h2 class="subheading"><%= @blog_post.summary %></h2>
+                        <span class="meta">Posted by <a href="#"><%= @blog_post.user.name %></a> <%= @blog_post.updated_at.to_formatted_s(:long_ordinal) %></span>
                     </div>
                 </div>
             </div>
@@ -21,11 +28,47 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <%= @blog.content %>
+                <% flash.each do |key, value| %>
+                <div class="alert alert-<%= key %>"><%= value %></div>
+                <% end %>
+                    <%= @blog_post.content %>
+                    <br>
+                    <br>
+                    <b>Tags :</b> 
+                    <%= @blog_post.tags.map{|tag|tag.tag_name}.join(", ")%>
                 </div>
             </div>
         </div>
     </article>
 
     <hr>
+    
+         <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <% if @blog_post.comments.count==0%>
+                    <h3>No Comment Yet</h3>
+                <% else %>
+                    <h3><%= @blog_post.comments.count %><%= " Comment".pluralize(@blog_post.comments.count) %></h3>
+                <% end %><br>
+            <% @blog_post.comments.each do |comment| %>
+            <div class="post-preview">
+                    <h4 class="post-title">
+                            <b><%= comment.name %></b>
+                        </h4>
+                        <p class="post-subtitle">
+                            <%= comment.message %> 
+                        </p>
+                    <p class="post-meta">Posted <%= time_ago_in_words (comment.created_at) %> ago</p>
+                </div>
+                <hr>
+            <% end %>
+            <% if @blog_post.commentable %>
+                   <%= render 'comments/form' %> 
+                <% end %>
+                </div>
+            </div>
+        </div>
+    <hr>
+    
     <%= render 'pages/footer' %>
